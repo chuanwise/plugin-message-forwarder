@@ -42,7 +42,7 @@ tasks.test {
 }
 
 tasks.shadowJar {
-    archiveFileName = "plugin-message-forwarder-${project.version}.jar"
+    archiveFileName = "$name-$version.jar"
 }
 
 kotlin {

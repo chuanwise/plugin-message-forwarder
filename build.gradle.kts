@@ -42,7 +42,7 @@ tasks.test {
 }
 
 tasks.shadowJar {
-    archiveFileName = "$name-$version.jar"
+    archiveFileName = "${project.name}-${project.version}.jar"
 }
 
 kotlin {

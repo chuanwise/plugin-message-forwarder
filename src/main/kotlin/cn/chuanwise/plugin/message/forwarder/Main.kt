@@ -30,7 +30,11 @@ import com.velocitypowered.api.event.connection.PluginMessageEvent
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
+import com.velocitypowered.api.proxy.Player
 import com.velocitypowered.api.proxy.ProxyServer
+import com.velocitypowered.api.proxy.ServerConnection
+import com.velocitypowered.api.proxy.messages.ChannelMessageSink
+import com.velocitypowered.api.proxy.messages.ChannelMessageSource
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier
 import org.slf4j.Logger
 import java.nio.file.Path
@@ -60,7 +64,7 @@ class Main @Inject constructor(
     private var channels: Set<MinecraftChannelIdentifier>? = null
 
     @Subscribe
-    fun onProxyInit(event: ProxyInitializeEvent) {
+    fun onProxyInitialize(event: ProxyInitializeEvent) {
         instance = this
 
         val configFile = dataDirectoryPath.resolve("config.yml").toFile()
@@ -108,6 +112,23 @@ class Main @Inject constructor(
         event.result = PluginMessageEvent.ForwardResult.forward()
 
         val data = event.data
-        info { "Forward message (${data.size} bytes, ${data.introduce(prefix = 16, suffix = 16)}) to player directly." }
+        val intro = data.introduce(prefix = 4, suffix = 4)
+        info { "Forward message (${data.size} bytes, $intro) from ${event.source.introduce()} to ${event.target.introduce()}." }
+    }
+
+    private fun ChannelMessageSource.introduce(): String {
+        return when (this) {
+            is ServerConnection -> "backend server ${serverInfo.name} (${serverInfo.address})"
+            is Player -> "player $username ($uniqueId)"
+            else -> "source $this"
+        }
+    }
+
+    private fun ChannelMessageSink.introduce(): String {
+        return when (this) {
+            is ServerConnection -> "backend server ${serverInfo.name} (${serverInfo.address})"
+            is Player -> "player $username ($uniqueId)"
+            else -> "source $this"
+        }
     }
 }

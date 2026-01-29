@@ -32,7 +32,7 @@ fun ByteArray.suffix(length: Int): ByteArray {
 
 fun ByteArray.introduce(prefix: Int, suffix: Int): String {
     if (this.size <= prefix + suffix) {
-        return "content: ${toHexString()}"
+        return "content: 0x${toHexString()}"
     }
-    return "prefix ($prefix bytes): ${prefix(prefix).toHexString()} ... suffix ($suffix bytes): ${suffix(suffix).toHexString()}"
+    return "prefix ($prefix bytes): 0x${prefix(prefix).toHexString()} ... suffix ($suffix bytes): 0x${suffix(suffix).toHexString()}"
 }

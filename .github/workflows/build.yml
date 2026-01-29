@@ -29,5 +29,4 @@ jobs:
       - name: Upload shadowJar artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PluginMessageForwarder-shadow
           path: build/libs/*.jar

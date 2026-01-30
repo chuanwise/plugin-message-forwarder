@@ -36,19 +36,12 @@ channels:
 
 ## 安装
 
-1. 将 `plugin-message-forwarder-$version.jar` 放入 `plugins/` 目录。
+1. 去 GitHub Action 里找到 `plugin-message-forwarder-$version.jar` 放入 `plugins` 目录。
 2. 启动或重载 Velocity。
 3. 确认 `logs/latest.log` 中插件启用信息。
 
-## 示例
-
-```yml
-channels:
-  - myplugin:example
-  - anotherplugin:chat
-```
-
 启动后，**所有后端服务器发往这些通道的消息都会被自动转发给客户端**。
 
+## 指令
 
-
+* `/plugin-message-forwarder reload` - 重新加载配置文件。

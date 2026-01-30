@@ -1,7 +1,7 @@
 {
   "id": "plugin-message-forwarder",
   "name": "Plugin Message Forwarder",
-  "version": "0.1.0-SNAPSHOT",
+  "version": "0.1.0",
   "description": "Developer tool to forward plugin messages.",
   "authors": [
     "Chuanwise"
